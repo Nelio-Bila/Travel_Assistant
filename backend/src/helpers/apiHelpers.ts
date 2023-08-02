@@ -12,6 +12,21 @@ export const getCountryCodeByCity = async (city: string) => {
   }
 };
 
+export const getLocalCurrencyByCity = async (city: string) => {
+ 
+    try {
+      const countryCode = await getCountryCodeByCity(city);
+      const countryResponse = await axios.get(`https://restcountries.com/v2/name/${countryCode}?fullText=true`);
+  
+      const currency = countryResponse.data[0].currencies[0].code;
+  
+      return currency;
+    } catch (error) {
+      console.error('Error fetching currency data:', error);
+    }
+};
+
+
 export const getLastYear = async () => {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();

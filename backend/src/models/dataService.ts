@@ -1,12 +1,9 @@
 import axios from "axios";
-import { getCountryCodeByCity, getLastYear } from '../helpers/apiHelpers';
-
-const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
-const EXCHANGE_API_KEY = process.env.EXCHANGE_API_KEY;
+import { getCountryCodeByCity, getLastYear, getLocalCurrencyByCity } from '../helpers/apiHelpers';
 
 export const getPopulationData = async (city: string) => {
   try {
-    const countryCode = await getCountryCodeByCity(city);
+      const countryCode = await getCountryCodeByCity(city);
     const lastYear = await getLastYear();
     const response = await axios.get(
       `https://api.worldbank.org/v2/country/${countryCode}/indicator/SP.POP.TOTL?format=json&date=${lastYear}`
@@ -33,7 +30,7 @@ export const getGdpData = async (city: string) => {
 export const getWeatherData = async (city: string) => {
   try {
     const response = await axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?appid=${WEATHER_API_KEY}&q=${city}`
+      `http://api.openweathermap.org/data/2.5/weather?appid=${process.env.WEATHER_API_KEY}&q=${city}`
     );
     return response.data;
   } catch (error) {
@@ -43,8 +40,9 @@ export const getWeatherData = async (city: string) => {
 
 export const getExchangeRateData = async (city: string) => {
   try {
+    const localCurrency = await getLocalCurrencyByCity(city);
     const response = await axios.get(
-      `https://api.exchangeratesapi.io/v1/latest?access_key=${EXCHANGE_API_KEY}&base=USD`
+      `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.EXCHANGE_API_KEY}&base=${localCurrency}`
     );
     return response.data;
   } catch (error) {

@@ -4,5 +4,7 @@ const express = require("express");
 const apiController_1 = require("../controllers/apiController");
 const router = express.Router();
 router.get('/population/:city', apiController_1.getPopulation);
+router.get('/gdp/:city', apiController_1.getGdp);
 router.get('/weather/:city', apiController_1.getWeather);
+router.get('/exchangerate/:city', apiController_1.getExchangeRate);
 exports.default = router;

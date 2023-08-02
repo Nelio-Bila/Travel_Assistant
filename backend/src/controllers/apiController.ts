@@ -5,6 +5,7 @@ import { getPopulationData,getWeatherData,getGdpData, getExchangeRateData } from
 
 export const getPopulation = async (req: Request, res: Response) => {
   const city = req.params.city;
+  
   try {
     const populationData = await getPopulationData(city);
     res.json(populationData);

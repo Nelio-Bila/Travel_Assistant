@@ -4,14 +4,17 @@ import cors = require('cors');
 import morgan from 'morgan';
 import apiRouter from './routes/apiRouter';
 import { errorHandler } from './middlewares/errorHandler';
+import authRoutes from "./routes/authRoutes";
+require('dotenv').config();
 
 const app: Application = express();
 app.use(morgan('combined'));
 app.use(cors());
 app.use(express.json());
 
-app.use('/api', apiRouter);
 
+app.use('/api', apiRouter);
+app.use("/auth", authRoutes);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
