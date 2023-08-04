@@ -31,14 +31,19 @@ This repository contains a web application built with a Node.js and Express back
 
 3.  **Configure environment variables:**
 
-        In the `backend` directory, create a `.env` file and configure the necessary environment variables. You might need to set variables such as .
+        In the `backend` directory, create a `.env` file and configure the necessary environment variables. You might need to set variables such as openweathermap_api_key, exchangeratesapi_api_key and geonames_account_username .
 
     ```plaintext
-    USERNAME=
-    WEATHER_API_KEY=
-    EXCHANGE_API_KEY=
-    JWT_SECRET=
-    DATABASE_URL=
+    USERNAME=geonames_account_username
+    WEATHER_API_KEY=openweathermap_api_key
+    EXCHANGE_API_KEY=exchangeratesapi_api_key
+    JWT_SECRET=your_jwt_secret
+    DATABASE_URL=your_database_url
+    ```
+    In the `frontend` directory, create a `.env` file and configure the necessary environment variables. You might need to set variables such as NEXT_PUBLIC_BACKEND_URL.
+
+```plaintext
+    NEXT_PUBLIC_BACKEND_URL=http://localhost:5000
     ```
 
 4.  **Run the application:**
