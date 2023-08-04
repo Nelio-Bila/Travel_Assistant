@@ -50,21 +50,6 @@ export const login: RequestHandler = async (req, res, next) => {
   });
 };
 
-// export const loginValidation = [
-//   body("email").isEmail().withMessage("Please enter a valid email address"),
-//   body("password")
-//     .trim()
-//     .isLength({ min: 8 })
-//     .withMessage("Password must be at least 8 characters long"),
-//   (req: Request, res: Response, next: NextFunction) => {
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//       next(new HttpException(422, "Invalid input"));
-//       return;
-//     }
-//     next();
-//   },
-// ];
 export const loginValidation: RequestHandlerParams<
   any, // Use 'any' for Params type
   any,

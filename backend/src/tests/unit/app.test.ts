@@ -21,11 +21,6 @@ describe('Travel Assistance App', () => {
     app.use(errorHandler);
   });
 
-  // it('responds with "Server is running" message on root path', async () => {
-  //   const response = await request(app).get('/');
-  //   expect(response.status).toBe(200);
-  //   expect(response.text).toContain('Server is running');
-  // });
 
   it('responds with 404 on unknown routes', async () => {
     const response = await request(app).get('/nonexistent-route');

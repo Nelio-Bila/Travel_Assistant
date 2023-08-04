@@ -15,7 +15,6 @@ class RefreshTokenUserUseCase {
       throw new Error("Invalid refresh token ");
     }
 
-    // const refreshTokenExpired = dayjs.isAfter(dayjs.unix(refreshToken.expiresIn));
     const refreshTokenExpired = dayjs.unix(refreshToken.expiresIn).isAfter(dayjs());
     console.log(refreshTokenExpired);
 
