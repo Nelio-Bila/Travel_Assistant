@@ -1,0 +1,54 @@
+.centered-input {
+  transition: all 0.5s ease;
+}
+
+.centered-input.focused {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  z-index: 1;
+}
+
+.centered-input.align-items-start {
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  .w-md-75 {
+    width: 75%;
+  }
+}
+
+.skeleton-loader {
+  display: inline-block;
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.skeleton-title {
+  width: 60%;
+  height: 20px;
+  background-color: #ddd;
+  margin-bottom: 8px;
+}
+
+.skeleton-text {
+  width: 100%;
+  height: 12px;
+  background-color: #ccc;
+  margin-bottom: 6px;
+}
+
+
+@media (max-width: 767px) {
+  .skeleton-title {
+    width: 80%;
+  }
+}
+
+

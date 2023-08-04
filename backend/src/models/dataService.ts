@@ -30,7 +30,7 @@ export const getGdpData = async (city: string) => {
 export const getWeatherData = async (city: string) => {
   try {
     const response = await axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?appid=${process.env.WEATHER_API_KEY}&q=${city}`
+      `http://api.openweathermap.org/data/2.5/weather?appid=${process.env.WEATHER_API_KEY}&q=${city}&units=metric&cnt=1`
     );
     return response.data;
   } catch (error) {
@@ -42,7 +42,8 @@ export const getExchangeRateData = async (city: string) => {
   try {
     const localCurrency = await getLocalCurrencyByCity(city);
     const response = await axios.get(
-      `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.EXCHANGE_API_KEY}&base=${localCurrency}`
+      `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.EXCHANGE_API_KEY}`
+      // `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.EXCHANGE_API_KEY}&base=${localCurrency}`
     );
     return response.data;
   } catch (error) {

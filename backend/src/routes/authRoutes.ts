@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { body } from "express-validator";
 import { login, getAuth, register } from "../controllers/authController";
-import {RefreshTokenUserController} from "../refreshTokenUser/RefreshTokenUserController"
+import {RefreshTokenUserController} from "../RefreshTokenUser/RefreshTokenUserController"
 import { PrismaClient } from "@prisma/client";
 
 const router = Router();
@@ -22,20 +22,20 @@ router.post(
     body("email")
       .trim()
       .isEmail()
-      .withMessage("Introduza um email válido")
+      .withMessage("Invalid E-mail")
       .custom(async (value, { req }) => {
         const prisma = new PrismaClient();
         const userDoc = await prisma.user.findFirst({
           where: { email: value },
         });
         if (userDoc) {
-          return Promise.reject("Este email já esta em uso no sistema");
+          return Promise.reject("This email already has any account associated");
         }
       }),
     body("password")
       .trim()
       .isLength({ min: 6 })
-      .withMessage("A palavra-passe deve ter 6 caracteres no minimo"),
+      .withMessage("Password must have 6 characters minimum"),
   ],
   register
 );
