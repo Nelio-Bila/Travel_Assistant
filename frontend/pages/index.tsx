@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import SearchForm from "../components/SearchForm";
 import {
   getPopulation,
@@ -14,6 +14,7 @@ import ExchangeRateCardSkeleton from "@/components/ui/skeletons/ExchangeRateCard
 import PopulationCardSkeleton from "@/components/ui/skeletons/PopulationCardSkeleton";
 import GdpPerCapitaCardSkeleton from "@/components/ui/skeletons/GdpPerCapitaCardSkeleton";
 import WeatherCardSkeleton from "@/components/ui/skeletons/WeatherCardSkeleton";
+import { AuthContext } from "contexts/authcontext";
 
 const HomePage = () => {
   const [city, setCity] = useState("");
@@ -25,6 +26,7 @@ const HomePage = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
 
   const [loading, setLoading] = useState(false);
+  const { user } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -126,25 +128,31 @@ const HomePage = () => {
       ) : null}
 
       <div className="row d-flex mt-5">
-        <div className="col-md-4 d-flex justify-content-center">
-          {loading && <PopulationCardSkeleton />}{" "}
-          {dataLoaded ? <PopulationCard data={population} /> : null}
-        </div>
-        <div className="col-md-4 d-flex justify-content-center">
-          {loading && <GdpPerCapitaCardSkeleton />}{" "}
-          {dataLoaded ? <GdpPerCapitaCard data={gdpPerCapita} /> : null}
-        </div>
+        {user ? (
+          <>
+            <div className="col-md-4 d-flex justify-content-center">
+              {loading && <PopulationCardSkeleton />}{" "}
+              {dataLoaded ? <PopulationCard data={population} /> : null}
+            </div>
+            <div className="col-md-4 d-flex justify-content-center">
+              {loading && <GdpPerCapitaCardSkeleton />}{" "}
+              {dataLoaded ? <GdpPerCapitaCard data={gdpPerCapita} /> : null}
+            </div>
+          </>
+        ) : null}
         <div className="col-md-4 d-flex justify-content-center">
           {loading && <WeatherCardSkeleton />}{" "}
           {dataLoaded ? <WeatherCard data={weather} /> : null}
         </div>
       </div>
-      <div className="row d-flex ">
-        <div className="col d-flex justify-content-center">
-          {loading && <ExchangeRateCardSkeleton />}{" "}
-          {dataLoaded ? <ExchangeRateCard data={exchangeRate} /> : null}
+      {user ? (
+        <div className="row d-flex ">
+          <div className="col d-flex justify-content-center">
+            {loading && <ExchangeRateCardSkeleton />}{" "}
+            {dataLoaded ? <ExchangeRateCard data={exchangeRate} /> : null}
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };

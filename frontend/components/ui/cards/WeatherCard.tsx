@@ -17,7 +17,7 @@ const WeatherCard = ({ data }) => {
       <div className="card-header">Weather in {data.name}</div>
       <div className="card-body">
         <h6 className="card-subtitle mb-2 text-muted">
-          data.weather[0].description
+          {data.weather[0].description}
         </h6>
 
         <div className="row">
