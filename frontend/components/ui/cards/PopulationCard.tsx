@@ -12,7 +12,7 @@ const PopulationCard = ({ data }) => {
   const formattedPopulation = new Intl.NumberFormat("en-US").format(population);
 
   return (
-    <div className="card w-100 my-2">
+    <div className="card w-100 my-2 bg-blur">
       <div className="card-header">Population Information</div>
       <div className="card-body">
         <h5 className="card-title">{populationInfo.country.value}</h5>

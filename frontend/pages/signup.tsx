@@ -1,13 +1,13 @@
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
-import React, { useContext, useState } from "react";
-import { AuthContext } from "contexts/authcontext";
+import React, {  useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import Link from "next/link";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signup } from "@/services/UserService";
+
 import Router from "next/router";
+import { signup } from "@/services/UserService";
 
 const schema = yup.object({
   email: yup.string().email("Invalid E-mail").required("E-mail is required"),
@@ -33,9 +33,9 @@ const Signup = () => {
 
   const getFormErrorMessage = (name: keyof typeof errors) => {
     return errors && errors[name] ? (
-      <p className="p-error">{errors[name]?.message}</p>
+      <p className="invalid-feedback text-danger">{errors[name]?.message}</p>
     ) : (
-      <p className="p-error">&nbsp;</p>
+      <p className="invalid-feedback text-danger">&nbsp;</p>
     );
   };
 
@@ -67,7 +67,7 @@ const Signup = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <h1 className="h3 mb-3 fw-normal">Sign up</h1>
 
-              <div className="alert alert-danger" role="alert">
+              {backEndErrors.length > 0 &&(<div className="alert alert-danger" role="alert">
                 {backEndErrors.length > 0
                   ? backEndErrors.map((error: any) => (
                       <p key={error.param}>
@@ -76,13 +76,13 @@ const Signup = () => {
                       </p>
                     ))
                   : null}
-              </div>
+              </div>)}
               <Controller
                 control={control}
                 name="email"
                 rules={{ required: "Email is required" }}
                 defaultValue=""
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <div className="form-floating mb-3">
                     <input
                       {...field}
@@ -101,7 +101,7 @@ const Signup = () => {
                 name="password"
                 rules={{ required: "Password is required" }}
                 defaultValue=""
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <div className="form-floating mb-3">
                     <input
                       {...field}
@@ -121,7 +121,16 @@ const Signup = () => {
                 type="submit"
                 disabled={loading}
               >
-                Sign up
+               {loading ? (
+                <>
+                  <div className="spinner-border text-white me-2" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  Processing
+                  </>
+                ) : (
+                  <span>Sign up</span>
+                )}
               </button>
             </form>
             <Link className="my-3" href={`login`}>

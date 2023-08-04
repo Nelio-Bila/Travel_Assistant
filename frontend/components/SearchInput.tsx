@@ -5,7 +5,7 @@ const SearchInput = ({value,setValue}) => {
     <input
       type="text"
       className="form-control form-control-lg"
-      placeholder="Search your destination city"
+      placeholder="Write your destination city"
       value={value}
             onChange={(e) => setValue(e.target.value)}
     />

@@ -24,7 +24,7 @@
       "@/styles/*": ["styles/*"],
       "@/services/*": ["services/*"],
       "@/utils/*": ["utils/*"],
-      "@/types/*": ["types/*"],
+      "@/contexts/*": ["contexts/*"],
     }
   },
   "include": [

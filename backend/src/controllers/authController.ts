@@ -1,8 +1,10 @@
-import { NextFunction, RequestHandler } from "express";
+import { Request, Response,RequestHandler, NextFunction } from 'express';
+import { RequestHandlerParams } from 'express-serve-static-core';
 import { PrismaClient, User } from "@prisma/client";
 import { body, validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
 import jwt, { Secret } from "jsonwebtoken";
+import { ParsedQs } from 'qs';
 import HttpException from "../exceptions/HttpException";
 import { GenerateRefreshToken } from "../provider/GenerateRefreshToken";
 import { GenerateTokenProvider } from "../provider/GenerateTokenProvider";
@@ -48,16 +50,37 @@ export const login: RequestHandler = async (req, res, next) => {
   });
 };
 
-export const loginValidation = [
-  body("email").isEmail().withMessage("Please enter a valid email address"),
-  body("password")
+// export const loginValidation = [
+//   body("email").isEmail().withMessage("Please enter a valid email address"),
+//   body("password")
+//     .trim()
+//     .isLength({ min: 8 })
+//     .withMessage("Password must be at least 8 characters long"),
+//   (req: Request, res: Response, next: NextFunction) => {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//       next(new HttpException(422, "Invalid input"));
+//       return;
+//     }
+//     next();
+//   },
+// ];
+export const loginValidation: RequestHandlerParams<
+  any, // Use 'any' for Params type
+  any,
+  any,
+  ParsedQs,
+  Record<string, any>
+> = [
+  body('email').isEmail().withMessage('Please enter a valid email address'),
+  body('password')
     .trim()
     .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 characters long"),
+    .withMessage('Password must be at least 8 characters long'),
   (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      next(new HttpException(422, "Invalid input"));
+      next(new HttpException(422, 'Invalid input'));
       return;
     }
     next();

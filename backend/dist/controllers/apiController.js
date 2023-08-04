@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getExchangeRate = exports.getWeather = exports.getGdp = exports.getPopulation = void 0;
-const dataService_1 = require("../models/dataService");
+const dataService_1 = require("../services/dataService");
 const getPopulation = async (req, res) => {
     const city = req.params.city;
     try {

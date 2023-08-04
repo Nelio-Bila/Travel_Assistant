@@ -1,15 +1,12 @@
 import React, { useState, createContext, useEffect } from "react";
-import { login,signup, recoverUserInformation } from "@/services/UserService";
+import { login, recoverUserInformation } from "@/services/userService";
 import { setCookie, parseCookies, destroyCookie } from "nookies";
 import Router from "next/router";
 import {api} from "@/config/api";
 
 type User = {
   id: string;
-
   email: string;
-  type: "NORMAL"|"ADMIN"|"SUPER",
-  hasWorkerProfile: boolean
 };
 
 type AuthContextType = {
@@ -31,7 +28,7 @@ export function AuthProvider({ children }) {
   const isAuthenticated = !!user;
 
   useEffect(() => {
-    const { tendera_token: token } = parseCookies();
+    const { assistant_token: token } = parseCookies();
 
     if (token) {
       recoverUserInformation(token).then((response) => {
@@ -43,7 +40,7 @@ export function AuthProvider({ children }) {
   async function signIn({ email, password }: SignInData) {
     const { token, user } = await login({ email, password });
 
-    setCookie(undefined, "tendera_token", token, { maxAge: 60 * 60 * 1 });
+    setCookie(undefined, "assistant_token", token, { maxAge: 60 * 60 * 1 });
 
     api.defaults.headers.common["Authorization"] =
     "Bearer " + token;
@@ -54,7 +51,7 @@ export function AuthProvider({ children }) {
   }
 
   async function signOut() {
-    destroyCookie(undefined, 'tendera_token', {
+    destroyCookie(undefined, 'assistant_token', {
         maxAge: -1,
       });
 

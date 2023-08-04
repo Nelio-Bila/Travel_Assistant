@@ -15,6 +15,7 @@ import PopulationCardSkeleton from "@/components/ui/skeletons/PopulationCardSkel
 import GdpPerCapitaCardSkeleton from "@/components/ui/skeletons/GdpPerCapitaCardSkeleton";
 import WeatherCardSkeleton from "@/components/ui/skeletons/WeatherCardSkeleton";
 import { AuthContext } from "contexts/authcontext";
+import Hero from "@/components/Hero";
 
 const HomePage = () => {
   const [city, setCity] = useState("");
@@ -111,6 +112,7 @@ const HomePage = () => {
 
   return (
     <div className="container">
+      <Hero/>
       <div className="row d-flex justify-content-center">
         <div className="col-md-8">
           <SearchForm
@@ -127,10 +129,11 @@ const HomePage = () => {
         </div>
       ) : null}
 
-      <div className="row d-flex mt-5">
+      <div className="row d-flex mt-5 justify-content-center">
         {user ? (
           <>
-            <div className="col-md-4 d-flex justify-content-center">
+            <div className={`col-md-4 d-flex justify-content-center`}>
+              
               {loading && <PopulationCardSkeleton />}{" "}
               {dataLoaded ? <PopulationCard data={population} /> : null}
             </div>

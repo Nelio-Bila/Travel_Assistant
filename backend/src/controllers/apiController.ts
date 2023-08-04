@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getPopulationData,getWeatherData,getGdpData, getExchangeRateData } from '../models/dataService';
+import { getPopulationData,getWeatherData,getGdpData, getExchangeRateData } from '../services/dataService';
 
 
 
